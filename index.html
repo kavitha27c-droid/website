@@ -1,1 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>For Latha 💎</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    background:#090714;
+    color:white;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+/* Stars */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        radial-gradient(white 1px,transparent 1px),
+        radial-gradient(#fff 1px,transparent 1px);
+    background-size:90px 90px,150px 150px;
+    background-position:0 0,40px 70px;
+    opacity:.25;
+    pointer-events:none;
+}
+
+/* Screens */
+
+.screen{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:30px 18px;
+    position:relative;
+    z-index:2;
+}
+
+.screen.active{
+    display:flex;
+    animation:fade .7s ease;
+}
+
+.card{
+    width:min(450px,100%);
+    text-align:center;
+}
+
+h1,h2{
+    font-family:"DM Serif Display",serif;
+    font-weight:400;
+}
+
+h1{
+    font-size:60px;
+    line-height:1;
+}
+
+h2{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.glow{
+    color:#ffd5ee;
+    text-shadow:0 0 25px #ff7ac8;
+}
+
+.sub{
+    color:#d8d2e9;
+    line-height:1.7;
+    margin:15px auto 28px;
+    max-width:370px;
+}
+
+/* Button */
+
+button{
+    border:none;
+    padding:15px 25px;
+    border-radius:50px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    color:#210b1d;
+    background:linear-gradient(135deg,#ffd4ed,#d9b8ff);
+    box-shadow:0 10px 30px rgba(220,150,255,.3);
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.03);
+}
+
+.secondary{
+    background:transparent;
+    color:white;
+    border:1px solid rgba(255,255,255,.3);
+    box-shadow:none;
+}
+
+.small{
+    font-size:12px;
+    color:#aaa3bb;
+    margin-top:15px;
+}
+
+/* Cake */
+
+.cake{
+    width:190px;
+    height:160px;
+    margin:auto;
+    position:relative;
+}
+
+.cake-base{
+    position:absolute;
+    bottom:0;
+    left:15px;
+    width:160px;
+    height:85px;
+    border-radius:15px 15px 25px 25px;
+    background:linear-gradient(#f9b7df,#a86bd0);
+}
+
+.cream{
+    position:absolute;
+    bottom:65px;
+    left:25px;
+    width:140px;
+    height:40px;
+    border-radius:50%;
+    background:#ffe5f5;
+}
+
+.candle{
+    position:absolute;
+    left:87px;
+    top:5px;
+    width:14px;
+    height:55px;
+    border-radius:6px;
+    background:#f5b6d9;
+}
+
+.flame{
+    position:absolute;
+    left:82px;
+    top:-25px;
+    width:23px;
+    height:30px;
+    border-radius:60% 40% 60% 40%;
+    background:#ffd66d;
+    box-shadow:0 0 25px #ff9f58;
+    animation:flicker .8s infinite alternate;
+}
+
+/* Envelope */
+
+.envelope{
+    width:270px;
+    height:180px;
+    margin:35px auto;
+    position:relative;
+    cursor:pointer;
+}
+
+.env-body{
+    position:absolute;
+    inset:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ffcbe9,#b88be9);
+}
+
+.flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:135px solid transparent;
+    border-right:135px solid transparent;
+    border-top:95px solid #dca5ed;
+    transform-origin:top;
+    transition:.7s;
+    z-index:3;
+}
+
+.envelope.open .flap{
+    transform:rotateX(180deg);
+}
+
+.letter{
+    position:absolute;
+    left:20px;
+    right:20px;
+    top:15px;
+    height:140px;
+    background:#fff8fc;
+    color:#39253c;
+    border-radius:8px;
+    padding:25px 15px;
+    font-family:"DM Serif Display",serif;
+    font-size:22px;
+    transition:.7s;
+    z-index:2;
+}
+
+.envelope.open .letter{
+    transform:translateY(-70px);
+}
+
+/* Photos */
+
+.photo-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:25px 0;
+}
+
+.photo-grid img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.photo-grid img:first-child{
+    grid-column:span 2;
+    height:250px;
+}
+
+/* Words */
+
+.words{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin:25px 0;
+}
+
+.word{
+    padding:10px 15px;
+    border-radius:30px;
+    background:rgba(255,196,231,.1);
+    border:1px solid rgba(255,196,231,.2);
+}
+
+/* Message */
+
+.quote{
+    padding:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.13);
+    line-height:1.8;
+    color:#eee5f2;
+}
+
+.heart{
+    font-size:60px;
+    animation:pulse 1.3s infinite;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+/* Animations */
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes flicker{
+    from{
+        transform:scale(1);
+    }
+    to{
+        transform:scale(1.15) rotate(3deg);
+    }
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.15);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:400px){
+
+    h1{
+        font-size:48px;
+    }
+
+    h2{
+        font-size:32px;
+    }
+
+    .photo-grid img{
+        height:145px;
+    }
+
+    .photo-grid img:first-child{
+        height:210px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- SCREEN 1 -->
+
+<section id="screen1" class="screen active">
+
+<div class="card">
+
+    <div class="cake">
+
+        <div class="flame"></div>
+
+        <div class="candle"></div>
+
+        <div class="cream"></div>
+
+        <div class="cake-base"></div>
+
+    </div>
+
+    <h1>
+        For <span class="glow">Latha</span> 💎
+    </h1>
+
+    <p class="sub">
+        A tiny little surprise for someone who means so much to me.
+    </p>
+
+    <button onclick="nextScreen(2);confetti()">
+        Open Your Surprise ✨
+    </button>
+
+    <p class="small">
+        Tap the button to begin
+    </p>
+
+</div>
+
+</section>
+
+
+
+<!-- SCREEN 2 -->
+
+<section id="screen2" class="screen">
+
+<div class="card">
+
+    <h2>A Little Letter 💌</h2>
+
+    <p class="sub">
+        Before you see the memories, open this.
+    </p>
+
+
+    <div class="envelope" id="envelope">
+
+        <div class="env-body"></div>
+
+        <div class="letter">
+
+            Latha... ❤️
+
+            <br><br>
+
+            My second mother.
+
+        </div>
+
+        <div class="flap"></div>
+
+    </div>
+
+
+    <button onclick="openLetter()">
+        Open Letter 💌
+    </button>
+
+</div>
+
+</section>
+
+
+
+<!-- SCREEN 3 -->
+
+<section id="screen3" class="screen">
+
+<div class="card">
+
+    <h2>My Girl 🤍</h2>
+
+    <p class="sub">
+        Some memories are too special to fit into words.
+    </p>
+
+
+    <div class="photo-grid">
+
+        <img src="images/photo1.jpg">
+
+        <img src="images/photo2.jpg">
+
+        <img src="images/photo3.jpg">
+
+        <img src="images/photo4.jpg">
+
+        <img src="images/photo5.jpg">
+
+    </div>
+
+
+    <button onclick="nextScreen(4)">
+        One More Thing →
+    </button>
+
+</div>
+
+</section>
+
+
+
+<!-- SCREEN 4 -->
+
+<section id="screen4" class="screen">
+
+<div class="card">
+
+    <div class="heart">
+        💗
+    </div>
+
+    <h2>
+        For My Caring Soul
+    </h2>
+
+
+    <div class="words">
+
+        <span class="word">
+            My Girl
+        </span>
+
+        <span class="word">
+            Caring Soul
+        </span>
+
+        <span class="word">
+            My Thangomey
+        </span>
+
+        <span class="word">
+            My 💎
+        </span>
+
+        <span class="word">
+            Second Mother
+        </span>
+
+    </div>
+
+
+    <div class="quote">
+
+        <strong>Latha,</strong>
+
+        <br><br>
+
+        I love you so much.
+
+        Thank you for caring for me,
+        supporting me, and being there
+        like a second mother.
+
+        You are truly precious to me.
+
+        <br><br>
+
+        <b>
+            My Thangomey... My Diamond... always. 💎❤️
+        </b>
+
+    </div>
+
+
+    <div class="actions">
+
+        <button onclick="nextScreen(5);confetti()">
+            Final Surprise 🎁
+        </button>
+
+        <button class="secondary" onclick="nextScreen(3)">
+            View Memories
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- SCREEN 5 -->
+
+<section id="screen5" class="screen">
+
+<div class="card">
+
+    <div class="heart">
+        🎂✨💗
+    </div>
+
+
+    <h1>
+
+        Happy Birthday
+
+        <br>
+
+        <span class="glow">
+            Latha!
+        </span>
+
+    </h1>
+
+
+    <p class="sub">
+
+        May your days be filled with happiness,
+        peace, love and lots of beautiful moments.
+
+        Thank you for being my caring soul
+        and my second mother.
+
+    </p>
+
+
+    <h2 style="font-size:28px">
+
+        I Love You ❤️
+
+    </h2>
+
+
+    <p class="small">
+
+        Made with love, just for you 💎
+
+    </p>
+
+
+    <div class="actions">
+
+        <button onclick="nextScreen(3)">
+            Replay Memories ↺
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<script>
+
+/* Change screen */
+
+function nextScreen(number){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(function(screen){
+
+        screen.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById("screen" + number)
+    .classList.add("active");
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+
+/* Envelope */
+
+function openLetter(){
+
+    const envelope =
+    document.getElementById("envelope");
+
+    envelope.classList.add("open");
+
+
+    setTimeout(function(){
+
+        nextScreen(3);
+
+    },1200);
+
+}
+
+
+
+/* Confetti */
+
+function confetti(){
+
+    const emojis = [
+        "💗",
+        "💎",
+        "✨",
+        "🌸",
+        "🎉",
+        "❤️"
+    ];
+
+
+    for(let i=0;i<40;i++){
+
+        const item =
+        document.createElement("div");
+
+
+        item.innerHTML =
+        emojis[
+            Math.floor(
+                Math.random()*emojis.length
+            )
+        ];
+
+
+        item.style.position="fixed";
+
+        item.style.left =
+        Math.random()*100 + "vw";
+
+        item.style.top="-20px";
+
+        item.style.fontSize =
+        (12 + Math.random()*18) + "px";
+
+        item.style.zIndex="999";
+
+        item.style.transition =
+        "transform 3s linear, opacity 3s";
+
+
+        document.body.appendChild(item);
+
+
+        setTimeout(function(){
+
+            item.style.transform =
+            "translateY(110vh) rotate(720deg)";
+
+            item.style.opacity="0";
+
+        },50);
+
+
+        setTimeout(function(){
+
+            item.remove();
+
+        },3500);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
